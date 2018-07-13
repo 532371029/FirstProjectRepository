@@ -1,45 +1,34 @@
 <?php
 namespace app\controller;
 
-use app\model\keywordsModel;
-use core\core;
+use app\model\msgbordModel;
 
-class indexController extends core
+
+class indexController extends baseController
 {
     public function index(){
+        $model=new msgbordModel();
+        $lists=$model->lists();
+        $this->assign('msgLists',$lists);
+        $this->display("index.html");
+    }
 
-        $model=new keywordsModel();
+    public function add(){
 
-        /*$res=$model->lists();
-        dump($res);*/
+        $this->display("add.html");
+    }
 
-        /*$columns=array("words","replaywords");
-        $ret=$model->getOne("1",$columns);
-        dump($ret);*/
+    public function save(){
+        $data['title']=post('title');
+        $data['content']=post('content');
+        $data['createtime']=time();
 
-        /*$data=array(
-            "words"=>"PHP框架",
-            "replaywords"=>"JetPHP"
-        );
-        $where=array("id"=>2);
-        $con=$model->setOne($where,$data);
-        dump($con);*/
-
-        /*$where=array("id"=>5);
-        $result=$model->delOne($where);
-        dump($result);*/
-
-        $data=[
-            [
-                "words"=>"轻量化PHP框架",
-                "replaywords"=>"JetPHP"
-            ],
-            [
-                "words"=>"最简洁的PHP框架JetPHP",
-                "replaywords"=>"欢迎使用JetPHP"
-            ]
-        ];
-        $con=$model->add($data);
-        dump($con);
+        $model=new msgbordModel();
+        $res=$model->add($data);
+        if($res){
+            success('index.html');
+        }else{
+          p('留言添加失败');
+        }
     }
 }

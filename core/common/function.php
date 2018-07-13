@@ -11,3 +11,35 @@ function p($var){
             .print_r($var,true)."</pre>";
     }
 }
+/**
+* @param $name 变量对应值
+* @param $default 默认值
+* @param $filter 过滤方法 ‘int’
+ **/
+function post($name,$default=false,$filter=false){
+
+    if(isset($_POST[$name])){
+        if($filter){
+            switch ($filter){
+                case 'int':
+                    if(is_numeric($_POST[$name])){
+                        return $_POST[$name];
+                    }else{
+                        return $default;
+                    }
+                    break;
+                default:;
+            }
+        }else{
+            return $_POST[$name];
+        }
+    }else{
+        return  $default;
+    }
+}
+
+/**成功跳转**/
+function success($url){
+    header('location:'.$url);
+    exit();
+}

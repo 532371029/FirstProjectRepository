@@ -6,10 +6,11 @@
       "PHP","PHP Framework"
   ],
   "require":{
-      "php":">=5.3.0",
-      "filp/whoops":"*",
+    "php":">=5.3.0",
+    "filp/whoops":"*",
     "symfony/var-dumper": "^3.4",
-    "catfan/medoo": "^1.5"
+    "catfan/medoo": "^1.5",
+    "twig/twig": "^1.35"
   },
   "repositories": {
     "packagist": {

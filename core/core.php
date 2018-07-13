@@ -3,6 +3,7 @@ namespace core;
 use core\lib\route;
 use core\lib\log;
 
+
 class core{
 
     static public  $classMap=array();
@@ -69,10 +70,21 @@ class core{
     }
 
     public function display($filePath){
+
         $filePath=APP.'/view/'.$filePath;
+
         if(is_file($filePath)){
-            extract(self::$assign);
-            include $filePath;
+
+
+            $loader = new \Twig_Loader_Filesystem(APP.'/view');
+            $twig = new \Twig_Environment($loader, array(
+                'cache' => DIYKJ.'/runtime/cache',
+                'debug'=>DEBUG,
+            ));
+            $template = $twig->loadTemplate('index.html');
+
+            $template->display(self::$assign ? self::$assign : array());
+
         }
     }
 }
